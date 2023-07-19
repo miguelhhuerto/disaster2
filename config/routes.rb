@@ -4,6 +4,8 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "posts#index"
-  resources :posts
+  resources :posts do
+    resources :comments, except: :show
+  end
   resources :categories, except: :show
 end
