@@ -6,6 +6,9 @@
 <% else %>
   <%= link_to 'Sign in', new_user_session_path %>
 <% end %>
+
+<%= link_to 'New Post', new_post_path %>
+<%= link_to 'New Category', new_category_path %>
 <table>
 
   <thead>
@@ -22,7 +25,11 @@
       <td><%= post.content %></td>
       <td><%= post.categories.pluck(:name).join(',') %></td>
       <td><%= post.address %></td>
-      <td></td>
+      <td>
+        <%= link_to 'Show', post_path(post) %>
+        <%= link_to 'Edit', edit_post_path(post) %>
+        <%= button_to 'Delete', post_path(post), method: :delete %>
+      </td>
     </tr>
   <% end %>
 </table>
