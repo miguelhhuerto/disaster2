@@ -5,3 +5,6 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+categories_1 = Category.create([:name => 'COVID'])
+categories_2 = Category.create([:name => 'Earthquake'])
+categories_3 = Category.create([:name => 'Requirements'])
