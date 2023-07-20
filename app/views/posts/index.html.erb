@@ -24,8 +24,9 @@
     <tr>
       <td><%= post.title %></td>
       <td><%= post.content %></td>
-      <td><%= post.user&.email %></td>
       <td><%= post.categories.pluck(:name).join(',') %></td>
+      <td></td>
+      <td><%= post.user&.email %></td>
       <td><%= post.address %></td>
       <td>
         <%= link_to 'Show', post_path(post) %>

@@ -1,4 +1,3 @@
-
 <%= form_with model: post do |form| %>
   <% if post.errors.any? %>
     <ul>
@@ -19,5 +18,10 @@
     <%= form.label :address %>
     <%= form.text_field :address %>
   </div>
+
+  <div>
+    <%= form.collection_check_boxes :category_ids, Category.all, :id, :name %>
+  </div>
+
   <%= form.submit %>
 <% end %>
