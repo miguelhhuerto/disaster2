@@ -56,9 +56,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_20_074619) do
     t.bigint "post_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "user_id"
     t.index ["post_id"], name: "index_comments_on_post_id"
-    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "post_category_ships", charset: "utf8mb4", force: :cascade do |t|
@@ -77,8 +75,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_20_074619) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "deleted_at"
-    t.bigint "user_id"
-    t.integer "comments_count"
     t.bigint "address_region_id"
     t.bigint "address_province_id"
     t.bigint "address_city_id"
@@ -87,7 +83,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_20_074619) do
     t.index ["address_city_id"], name: "index_posts_on_address_city_id"
     t.index ["address_province_id"], name: "index_posts_on_address_province_id"
     t.index ["address_region_id"], name: "index_posts_on_address_region_id"
-    t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
   create_table "users", charset: "utf8mb4", force: :cascade do |t|
