@@ -38,7 +38,14 @@
     <%= form.collection_select :address_city_id,
                                [], nil, nil,
                                { prompt: 'Please Select City' },
-                               data: { location_target: 'selectCityId' } %>
+                               data: { location_target: 'selectedCityId', action: 'change->location#fetchBarangays'} %>
+  </div>
+  <div>
+    <%= form.label :address_barangay_id %>
+    <%= form.collection_select :address_barangay_id,
+                               [], nil, nil,
+                               { prompt: 'Please Select Barangay' },
+                               data: { location_target: 'selectBarangayId' } %>
   </div>
   <div>
     <%= form.collection_check_boxes :category_ids, Category.all, :id, :name %>
