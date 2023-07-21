@@ -23,28 +23,16 @@
     <%= form.label :address_region_id %>
     <%= form.collection_select :address_region_id,
                                Address::Region.all, :id, :name,
-                               { prompt: 'Please select region' },
+                               { prompt: 'Please Select Region' },
                                data: { location_target: 'selectedRegionId', action: 'change->location#fetchProvinces' } %>
   </div>
   <div>
     <%= form.label :address_province_id %>
     <%= form.collection_select :address_province_id,
                                [], nil, nil,
-                               { prompt: 'Please select province' },
+                               { prompt: 'Please Select Province' },
                                data: { location_target: 'selectProvinceId' } %>
-  </div>
-  <div>
-    <%= form.label :address_city_id %>
-    <%= form.collection_select :address_city_id,
-                               Address::City.all, :id, :name,
-                               { prompt: 'Please select City' } %>
-  </div>
-  <div>
-    <%= form.label :address_barangay_id %>
-    <%= form.collection_select :address_barangay_id,
-                               Address::Barangay.all, :id, :name,
-                               { prompt: 'Please select barangay' } %>
-  </div>
+ 
   <div>
     <%= form.collection_check_boxes :category_ids, Category.all, :id, :name %>
   </div>

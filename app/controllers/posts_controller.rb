@@ -4,7 +4,7 @@ class PostsController < ApplicationController
   before_action :validate_post_owner, only: [:edit, :update, :destroy]
 
   def index
-    @posts = Post.includes(:categories, :user, :region, :province,:city, :barangay).all
+    @posts = Post.includes(:categories, :user, :region, :province).all
   end
 
   def new
@@ -47,7 +47,7 @@ class PostsController < ApplicationController
 
   def validate_post_owner
     unless @post.user == current_user
-      flash[:notice] = 'the post not belongs to you'
+      flash[:notice] = 'This Post Does Not Belong To You'
       redirect_to posts_path
     end
   end
@@ -57,6 +57,6 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:title, :content, :address, :address_region_id, :address_province_id,:address_city_id,:address_barangay_id, category_ids: [])
+    params.require(:post).permit(:title, :content, :address, :address_region_id, :address_province_id, category_ids: [])
   end
 end
