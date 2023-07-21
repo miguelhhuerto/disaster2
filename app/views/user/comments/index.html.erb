@@ -1,0 +1,13 @@
+<h2>User's Comments</h2>
+
+<ul>
+    <% @comments.each do |comment| %>
+    <li>
+        <%= comment.content %>(<%= comment.created_at %>) 
+        <%= link_to 'Edit', edit_user_comment_path(comment)%>
+        <%= button_to 'Delete', user_comment_path(comment) %>
+    </li>
+    <% end %>
+</ul>
+<%# <%= paginate @comments %> 
+<%= link_to 'Post List', posts_path %>

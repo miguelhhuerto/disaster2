@@ -1,34 +1,22 @@
-<h1>Disaster List</h1>
-
-<% if user_signed_in? %>
-  <h2> Hello <%= current_user.email %> </h2>
-  <%= link_to 'Sign out', destroy_user_session_path, data: { 'turbo-method': :delete } %>
-<% else %>
-  <%= link_to 'Sign in', new_user_session_path %>
-<% end %>
-
-  <%= link_to 'User Posts', user_posts_path if user_signed_in? %>
-  <%= link_to 'User Comments', user_comments_path if user_signed_in? %>
-<%= link_to 'New Post', new_post_path %>
+<h1>User Posts</h1>
+ <%= link_to 'Index', posts_path %>
 <table>
-
   <thead>
   <td>title</td>
   <td>content</td>
-  <td>category</td>
   <td>address</td>
+  <td>category</td>
   <td>user</td>
   <td>action</td>
-
   </thead>
   <% @posts.each do |post| %>
     <tr>
       <td><%= post.title %></td>
       <td><%= post.content %></td>
-      <td><%= post.categories.pluck(:name).join(',') %></td>
-      <td><%= "#{post.region&.name} #{post.province&.name} #{post.city&.name} #{post.barangay&.name} #{post.address}" %></td>
-      <td><%= post.user&.email %></td>
       <td><%= post.address %></td>
+      <td><%= post.categories.pluck(:name).join(',') %></td>
+      <td><%= post.user&.email %></td>
+
       <td>
         <%= link_to 'Show', post_path(post) %>
         <%= link_to 'Edit', edit_post_path(post) if user_signed_in? && post.user == current_user %>
