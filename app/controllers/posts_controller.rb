@@ -1,7 +1,6 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :validate_post_owner, only: [:edit, :update, :destroy]
 
   def index
     @posts = Post.includes(:categories, :user, :region, :province, :city, :barangay).all
@@ -25,9 +24,12 @@ class PostsController < ApplicationController
 
   def show; end
 
-  def edit; end
+  def edit
+    authorize @post, :edit?, policy_class: PostPolicy
+  end
 
   def update
+    authorize @post, :update?, policy_class: PostPolicy
     if @post.update(post_params)
       flash[:notice] = 'Post updated successfully'
       redirect_to posts_path
@@ -38,19 +40,13 @@ class PostsController < ApplicationController
   end
 
   def destroy
+    authorize @post, :destroy?, policy_class: PostPolicy
     @post.destroy
     flash[:notice] = 'Post destroyed successfully'
     redirect_to posts_path
   end
 
   private
-
-  def validate_post_owner
-    unless @post.user == current_user
-      flash[:notice] = 'This Post Does Not Belong To You'
-      redirect_to posts_path
-    end
-  end
 
   def set_post
     @post = Post.find(params[:id])
