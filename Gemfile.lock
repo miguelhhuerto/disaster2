@@ -203,6 +203,8 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
+    shortener (1.0.0)
+      voight_kampff (~> 1.1.2)
     sprockets (4.2.0)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -223,6 +225,8 @@ GEM
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.8.2)
+    voight_kampff (1.1.4)
+      rack (>= 1.4, < 3.0)
     warden (1.2.9)
       rack (>= 2.0.9)
     web-console (4.2.0)
@@ -253,6 +257,7 @@ DEPENDENCIES
   pundit
   rails (~> 7.0.6)
   rest-client
+  shortener
   sprockets-rails
   stimulus-rails
   turbo-rails

@@ -4,6 +4,7 @@ class Post < ApplicationRecord
   validates :content, presence: true
   validates :address, presence: true
 
+  has_shortened_urls
   has_many :comments
   has_many :post_category_ships
   has_many :categories, through: :post_category_ships

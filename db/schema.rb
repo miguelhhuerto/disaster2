@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_21_100711) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_22_070423) do
   create_table "address_barangays", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "city_id"
     t.string "code"
@@ -82,11 +82,29 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_21_100711) do
     t.bigint "address_city_id"
     t.bigint "address_barangay_id"
     t.bigint "user_id"
+    t.string "shorten_url"
     t.index ["address_barangay_id"], name: "index_posts_on_address_barangay_id"
     t.index ["address_city_id"], name: "index_posts_on_address_city_id"
     t.index ["address_province_id"], name: "index_posts_on_address_province_id"
     t.index ["address_region_id"], name: "index_posts_on_address_region_id"
     t.index ["user_id"], name: "index_posts_on_user_id"
+  end
+
+  create_table "shortened_urls", id: :integer, charset: "utf8mb4", force: :cascade do |t|
+    t.integer "owner_id"
+    t.string "owner_type", limit: 20
+    t.integer "post_id"
+    t.text "url", null: false
+    t.string "unique_key", limit: 10, null: false
+    t.string "category"
+    t.integer "use_count", default: 0, null: false
+    t.datetime "expires_at", precision: nil
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+    t.index ["category"], name: "index_shortened_urls_on_category"
+    t.index ["owner_id", "owner_type"], name: "index_shortened_urls_on_owner_id_and_owner_type"
+    t.index ["unique_key"], name: "index_shortened_urls_on_unique_key", unique: true
+    t.index ["url"], name: "index_shortened_urls_on_url", length: 768
   end
 
   create_table "users", charset: "utf8mb4", force: :cascade do |t|

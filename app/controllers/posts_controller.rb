@@ -14,6 +14,9 @@ class PostsController < ApplicationController
     @post = Post.new(post_params)
     @post.user = current_user
     if @post.save
+      post=@post
+      post.shorten_url = short_url(post_url(post))
+      post.save
       flash[:notice] = 'Post created successfully'
       redirect_to posts_path
     else

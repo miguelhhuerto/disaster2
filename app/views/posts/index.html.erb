@@ -10,18 +10,19 @@
   <td>content</td>
   <td>category</td>
   <td>address</td>
+  <td>link</td>
   <td>user</td>
   <td>action</td>
-
-  </thead>
+  
+    </thead>
   <% @posts.each do |post| %>
     <tr>
       <td><%= post.title %></td>
       <td><%= post.content %></td>
       <td><%= post.categories.pluck(:name).join(',') %></td>
       <td><%= "#{post.region&.name} #{post.province&.name} #{post.city&.name} #{post.barangay&.name} #{post.address}" %></td>
+      <td><%=post.shorten_url%></td>
       <td><%= post.user&.email %></td>
-      <td><%= post.address %></td>
       <td>
         <%= link_to 'Show', post_path(post) %>
         <%= link_to 'Edit', edit_post_path(post) if policy(post).edit? %>
