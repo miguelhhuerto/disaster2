@@ -6,13 +6,16 @@
 <table>
 
   <thead>
-  <td>title</td>
-  <td>content</td>
-  <td>category</td>
-  <td>address</td>
-  <td>link</td>
-  <td>user</td>
-  <td>action</td>
+  <td>Disaster Title</td>
+  <td>Content</td>
+  <td>Type</td>
+  <td>Address</td>
+  <td>Link</td>
+  <td>User</td>
+  <td>City</td>
+  <td>Country</td>
+  <td>IP Address</td>
+  <td>Action</td>
   
     </thead>
   <% @posts.each do |post| %>
@@ -20,9 +23,18 @@
       <td><%= post.title %></td>
       <td><%= post.content %></td>
       <td><%= post.categories.pluck(:name).join(',') %></td>
-      <td><%= "#{post.region&.name} #{post.province&.name} #{post.city&.name} #{post.barangay&.name} #{post.address}" %></td>
-      <td><%=post.shorten_url%></td>
+      <td><%= "#{post.address}, #{post.barangay&.name}, #{post.city&.name}, #{post.province&.name}, #{post.region&.name}" %></td>
+      <td><%= 'localhost:3000/' + post.shorten_url.to_s%></td>
       <td><%= post.user&.email %></td>
+      <td><%= Geocoder.search(post.ip_address).first&.city%></td>
+      <td><%= Geocoder.search(post.ip_address).first&.country%></td>
+      <td>
+      <%if user_signed_in? && post.user == current_user%>
+        <%= post.ip_address %>
+      <%else%>
+        <%="[HIDDEN]"%>
+      <%end%>
+      </td>
       <td>
         <%= link_to 'Show', post_path(post) %>
         <%= link_to 'Edit', edit_post_path(post) if policy(post).edit? %>
