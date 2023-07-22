@@ -1,8 +1,8 @@
 <h1>Disaster List</h1>
-
+  <%= link_to 'New Post', new_post_path %>
   <%= link_to 'User Posts', user_posts_path if user_signed_in? %>
   <%= link_to 'User Comments', user_comments_path if user_signed_in? %>
-<%= link_to 'New Post', new_post_path %>
+  <%= link_to 'Export', posts_path(format: :csv, page: params[:page]) %>
 <table>
 
   <thead>

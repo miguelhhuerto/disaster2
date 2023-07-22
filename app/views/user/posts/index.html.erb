@@ -1,5 +1,6 @@
 <h1>User Posts</h1>
  <%= link_to 'Index', posts_path %>
+ <%= link_to 'Export', posts_path(format: :csv, page: params[:page]) %>
 <table>
   <thead>
   <td>Disaster Title</td>
