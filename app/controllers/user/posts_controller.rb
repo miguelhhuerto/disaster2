@@ -29,4 +29,19 @@ class User::PostsController < ApplicationController
           }
           end
     end
+
+    def edit
+        authorize @post, :edit?, policy_class: PostPolicy
+    end
+    
+    def update
+    authorize @post, :update?, policy_class: PostPolicy
+    if @post.update(post_params)
+        flash[:notice] = 'Post updated successfully'
+        redirect_to posts_path
+    else
+        flash.now[:alert] = 'Post update failed'
+        render :edit, status: :unprocessable_entity
+    end
+    end
 end
