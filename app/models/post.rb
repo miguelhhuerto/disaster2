@@ -3,6 +3,7 @@ class Post < ApplicationRecord
   validates :title, presence: true
   validates :content, presence: true
   validates :address, presence: true
+  before_validation :generate_unique_short_code
 
   has_shortened_urls
   has_many :comments
@@ -17,5 +18,19 @@ class Post < ApplicationRecord
 
   def destroy
     update(deleted_at: Time.now)
+  end
+
+  def generate_unique_short_code
+    loop do
+      random_number = format('%04d', rand(1..9999))
+      unless Post.exists?(shorten_url: random_number)
+        self.shorten_url = random_number
+        break
+      end
+    end
+  end
+
+  def full_url
+    "/posts/#{self.shorten_url}"
   end
 end

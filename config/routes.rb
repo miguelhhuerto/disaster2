@@ -4,10 +4,10 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "posts#index"
-  get '/:id' => "shortener/shortened_urls#show"
   resources :posts do
     resources :comments, except: :show
   end
+  get '/:shorten_url', to: 'shortened_urls#redirect_to_post', as: :short_post
   resources :categories, except: :show
   namespace :user do
     resources :comments, :posts

@@ -5,10 +5,5 @@
   <li><%= @post.user&.email %></li>
 </ul>
 
-<%= final_url = short_url(post_url(@post))%>
-<%= p post_url(@post)%>
-<%# final_url = short_url(post_url(@post))
-      record = Post.new(shorten_url:final_url )
-      record.save %>
 <%= link_to 'Index', posts_path %>
 
