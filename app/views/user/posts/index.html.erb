@@ -16,6 +16,8 @@
       <td><%= post.address %></td>
       <td><%= post.categories.pluck(:name).join(',') %></td>
       <td><%= post.user&.email %></td>
+      <td><%= Geocoder.search(post.ip_address).first&.country%></td>
+      <td><%= Geocoder.search(post.ip_address).first&.city%></td>
 
       <td>
         <%= link_to 'Show', post_path(post) %>

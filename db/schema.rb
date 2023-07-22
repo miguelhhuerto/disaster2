@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_22_070423) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_22_154648) do
   create_table "address_barangays", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "city_id"
     t.string "code"
@@ -57,6 +57,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_22_070423) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
+    t.string "ip_address"
     t.index ["post_id"], name: "index_comments_on_post_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
@@ -83,6 +84,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_22_070423) do
     t.bigint "address_barangay_id"
     t.bigint "user_id"
     t.string "shorten_url"
+    t.string "ip_address"
     t.index ["address_barangay_id"], name: "index_posts_on_address_barangay_id"
     t.index ["address_city_id"], name: "index_posts_on_address_city_id"
     t.index ["address_province_id"], name: "index_posts_on_address_province_id"

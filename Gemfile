@@ -16,6 +16,8 @@ gem 'shortener'
 
 ruby "3.0.4"
 
+gem 'geocoder'
+
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.6"
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]

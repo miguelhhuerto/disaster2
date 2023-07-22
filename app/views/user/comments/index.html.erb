@@ -3,7 +3,7 @@
 <ul>
     <% @comments.each do |comment| %>
     <li>
-        <%= comment.content %>(<%= comment.created_at %>) 
+        <%= comment.content %>(<%= comment.created_at %>) by <%= comment.user&.email %> from <%= Geocoder.search(comment.ip_address).first&.city%>, <%= Geocoder.search(comment.ip_address).first&.country%></td>
         <%= link_to 'Edit', edit_user_comment_path(comment)%>
         <%= button_to 'Delete', user_comment_path(comment) %>
     </li>

@@ -13,10 +13,13 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     @post.user = current_user
+    if Rails.env.development?
+      @post.ip_address = Net::HTTP.get(URI.parse('http://checkip.amazonaws.com/')).squish
+    else
+      @post.ip_address = request.remote_ip
+    end
     if @post.save
-      post=@post
-      post.shorten_url = short_url(post_url(post))
-      post.save
+
       flash[:notice] = 'Post created successfully'
       redirect_to posts_path
     else
@@ -25,7 +28,12 @@ class PostsController < ApplicationController
     end
   end
 
-  def show; end
+  def show;
+    
+  end
+
+  # @post = Post.find_by(shorten_url: params[:shorten_url])
+  # redirect_to root_path, notice: 'Post not found' unless @post
 
   def edit
     authorize @post, :edit?, policy_class: PostPolicy
