@@ -1,19 +1,19 @@
 Rails.application.routes.draw do
   root "posts#index"
   devise_for :users
+
   resources :posts do
     resources :comments, except: :show
   end
-
-  get '/:shorten_url', to: 'shortened_urls#redirect_to_post', as: :short_post
-  
-  post 'import_csv', to: 'csv_import#import', as: :import_csv
 
   resources :posts do
     collection do
       post :import
     end
   end
+
+  get '/:shorten_url', to: 'shortened_urls#redirect_to_post', as: :short_post
+  
   resources :categories, except: :show
   namespace :user do
     resources :comments, :posts

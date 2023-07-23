@@ -6,6 +6,7 @@
       <% end %>
     </ul>
   <% end %>
+  <%= link_to 'Import Data', import_new_import_data_path  %>
   <div>
     <%= form.label :title %>
     <%= form.text_field :title %>
@@ -50,13 +51,5 @@
   <div>
     <%= form.collection_check_boxes :category_ids, Category.all, :id, :name %>
   </div>
-
-  <div>
-    <%= form_tag import_posts_path, multipart: true do %>
-      <%= file_field_tag :file %>
-      <%= submit_tag "Import CSV" %>
-    <% end %>
-  </div>
-
   <%= form.submit %>
 <% end %>

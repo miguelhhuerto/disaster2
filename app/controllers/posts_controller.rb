@@ -76,6 +76,32 @@ class PostsController < ApplicationController
     redirect_to posts_path
   end
 
+  def import
+    if params[:file].present?
+      require 'csv'
+        data = params[:file].read
+        rows = CSV.parse(data, headers: true)
+        rows.each do |row|
+          categories = row['type']&.split(',')&.map do |category_name|
+            Category.find_by(name: category_name)
+          end
+          Post.create(
+            title: row['title'],
+            content: row['content'],
+            categories: categories,
+            address: row['address'],
+            address_region_id: row['region'],
+            address_province_id: row['province'],
+            address_city_id: row['city'],
+            address_barangay_id: row['barangay'],
+            user: current_user
+          )
+        end 
+        redirect_to posts_path, notice: "CSV file imported successfully."
+    else
+      redirect_to posts_path, alert: "Please select a CSV file."
+    end
+  end
   private
 
   def set_post

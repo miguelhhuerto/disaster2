@@ -46,4 +46,16 @@
   <% end %>
 </table>
 
+<div>
+<%= 'Import Data (CSV Format Only)' %>
+</div>
+
+<div>
+    <%= form_tag import_posts_path, multipart: true do %>
+        <%= file_field_tag :file %>
+        <%= submit_tag "Import Data" %>
+    <% end %>
+</div>
+
+
 <%= paginate @posts %>
