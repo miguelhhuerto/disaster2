@@ -1,11 +1,6 @@
 class User::PostsController < ApplicationController
     def index
         require 'csv'    
-        #import
-        # CSV.foreach("filename", headers: true) do |row|
-            # Moulding.create!(row.to_hash)
-        # end
-
         @posts = current_user.posts.page(params[:page]).per(5)
         respond_to do |format|
             format.html
