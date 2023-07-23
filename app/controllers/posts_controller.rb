@@ -2,10 +2,7 @@ class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, except: [:index, :show]
   require 'csv'   
-  #import
-  # CSV.foreach("filename", headers: true) do |row|
-    # Moulding.create!(row.to_hash)
-  # end
+
   def index
     @posts = Post.includes(:categories, :user, :region, :province, :city, :barangay).all.page(params[:page]).per(5)
     respond_to do |format|

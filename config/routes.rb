@@ -1,13 +1,19 @@
 Rails.application.routes.draw do
-  devise_for :users
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Defines the root path route ("/")
   root "posts#index"
+  devise_for :users
   resources :posts do
     resources :comments, except: :show
   end
+
   get '/:shorten_url', to: 'shortened_urls#redirect_to_post', as: :short_post
+  
+  post 'import_csv', to: 'csv_import#import', as: :import_csv
+
+  resources :posts do
+    collection do
+      post :import
+    end
+  end
   resources :categories, except: :show
   namespace :user do
     resources :comments, :posts
