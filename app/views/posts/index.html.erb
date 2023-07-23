@@ -1,54 +1,55 @@
-<h1>Disaster List</h1>
-  <%= link_to 'New Post', new_post_path %>
-  <%= link_to 'User Posts', user_posts_path if user_signed_in? %>
-  <%= link_to 'User Comments', user_comments_path if user_signed_in? %>
-  <%= link_to 'Export', posts_path(format: :csv, page: params[:page]) %>
-<table>
-
-  <thead>
-  <td>Disaster Title</td>
-  <td>Content</td>
-  <td>Type</td>
-  <td>Address</td>
-  <td>Link</td>
-  <td>User</td>
-  <td>City</td>
-  <td>Country</td>
-  <td>IP Address</td>
-  <td>Action</td>
-  
-    </thead>
-  <% @posts.each do |post| %>
-    <tr>
-      <td><%= post.title %></td>
-      <td><%= post.content %></td>
-      <td><%= post.categories.pluck(:name).join(',') %></td>
-      <td><%= "#{post.address}, #{post.barangay&.name}, #{post.city&.name}, #{post.province&.name}, #{post.region&.name}" %></td>
-      <td><%= 'localhost:3000/' + post.shorten_url.to_s%></td>
-      <td><%= post.user&.email %></td>
-      <td><%= Geocoder.search(post.ip_address).first&.city%></td>
-      <td><%= Geocoder.search(post.ip_address).first&.country%></td>
-      <td>
-      <%if user_signed_in? && post.user == current_user%>
-        <%= post.ip_address %>
-      <%else%>
-        <%="[HIDDEN]"%>
-      <%end%>
-      </td>
-      <td>
-        <%= link_to 'Show', post_path(post) %>
-        <%= link_to 'Edit', edit_post_path(post) if policy(post).edit? %>
-        <%= button_to 'Delete', post_path(post), method: :delete if policy(post).destroy? %>
-        <%= link_to 'Comments', post_comments_path(post) %>
-        <%= link_to 'New Comment', new_post_comment_path(post) %>
-      </td>
-    </tr>
-  <% end %>
-</table>
-
-<div>
-<%= 'Import Data (CSV Format Only)' %>
+<h1 class="d-flex justify-content-center">Philippine Disaster Documentation</h1>
+<div class="rounded">
+<div class="d-flex justify-content-center">
+  <table class="rounded rounded-3 overflow-hidden table table-striped table-bordered table-list", style="max-width: 80rem;">
+    <thead class="table-dark">
+    <td>Disaster Title</td>
+    <td>Content</td>
+    <td>Type</td>
+    <td>Address</td>
+    <td>Link</td>
+    <td>User</td>
+    <td>City</td>
+    <td>Country</td>
+    <td>IP Address</td>
+    <td>Action</td>
+    
+      </thead>
+      
+    <% @posts.each do |post| %>
+      <tr>
+        <td><%= post.title %></td>
+        <td><%= post.content %></td>
+        <td><%= post.categories.pluck(:name).join(',') %></td>
+        <td><%= "#{post.address}, #{post.barangay&.name}, #{post.city&.name}, #{post.province&.name}, #{post.region&.name}" %></td>
+        <td><%= 'localhost:3000/' + post.shorten_url.to_s%></td>
+        <td><%= post.user&.email %></td>
+        <td><%= Geocoder.search(post.ip_address).first&.city%></td>
+        <td><%= Geocoder.search(post.ip_address).first&.country%></td>
+        <td>
+        <%if user_signed_in? && post.user == current_user%>
+          <%= post.ip_address %>
+        <%else%>
+          <%="[HIDDEN]"%>
+        <%end%>
+        </td>
+        <td>
+          <%= link_to 'Show', post_path(post) %>
+          <%= link_to 'Edit', edit_post_path(post) if policy(post).edit? %>
+          <%= button_to 'Delete', post_path(post), method: :delete if policy(post).destroy? %>
+          <%= link_to 'Comments', post_comments_path(post) %>
+          <%= link_to 'New Comment', new_post_comment_path(post) %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
 </div>
+<div class="d-flex justify-content-center"><%= paginate @posts %></div>
+<div>
+<%= 'Export Data (as CSV)' %>
+<%= button_to 'Export', posts_path(format: :csv, page: params[:page]) %>
+<%= 'Import Data (CSV Format Only)' %>
+
 
 <div>
     <%= form_tag import_posts_path, multipart: true do %>
@@ -58,4 +59,4 @@
 </div>
 
 
-<%= paginate @posts %>
+

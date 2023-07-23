@@ -1,7 +1,46 @@
+
 <!DOCTYPE html>
 <html>
+<div class="p-3 mb-2 bg-secondary text-white">
 <head>
-  <title>App</title>
+
+<a class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+ Menu
+</a>
+
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasExampleLabel">Menu</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <div>
+      <%= button_to 'New Post', new_post_path, method: :get, class: 'btn btn-link' %>
+    </div>
+
+    <div>
+      <%if user_signed_in?%>
+        <%=button_to 'User Posts', user_posts_path,method: :get, class: 'btn btn-link' %>
+      <%end%>
+    </div>
+    <div>
+      <%if user_signed_in?%>
+        <%=button_to 'User Comments', user_comments_path,method: :get, class: 'btn btn-link' %>
+      <%end%>
+    </div>
+    <div>
+      <% if user_signed_in? %>
+        <%= link_to 'Sign out', destroy_user_session_path, data: { 'turbo-method': :delete } %>
+      <% else %>
+        <%= link_to 'Sign in', new_user_session_path %>
+      <% end %>
+    </div>  
+
+ 
+  </div>
+</div>
+
+  <title>Disaster List</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
@@ -9,15 +48,12 @@
   <p class="alert"><%= alert %></p>
   <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
   <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+
+
 </head>
 
 <body>
-  <% if user_signed_in? %>
-    <%= link_to 'Sign out', destroy_user_session_path, data: { 'turbo-method': :delete } %>
-  <% else %>
-    <%= link_to 'Sign in', new_user_session_path %>
-  <% end %>
-
   <%= yield %>
 </body>
+</div>
 </html>

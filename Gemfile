@@ -18,6 +18,8 @@ ruby "3.0.4"
 
 gem 'geocoder'
 
+gem 'bootstrap-sass'
+
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.6"
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
@@ -47,7 +49,9 @@ gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 # Use Sass to process CSS
-# gem "sassc-rails"
+gem 'sass-rails', '~> 5.0'
+
+gem "sassc-rails"
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 group :development, :test do
