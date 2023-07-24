@@ -20,6 +20,7 @@
     barangay = city.barangays.sample
     user = User.all.sample
     category_choose = Category.all.sample(rand(1..3))
+    ip = Faker::Internet.ip_v4_address
     puts "start create #{i} post"
     post = Post.create!(
       title: Faker::Lorem.sentence,
@@ -30,7 +31,10 @@
       address_region_id: region.id,
       address_province_id: province.id,
       address_city_id: city.id,
-      address_barangay_id: barangay.id
+      address_barangay_id: barangay.id,
+      ip_address: ip,
+      ip_city: Geocoder.search(ip).first&.city,
+      ip_country: Geocoder.search(ip).first&.country
     )
     (1..20).to_a.sample.times do
         Comment.create!(content: Faker::Lorem.sentence, user: User.all.sample, post: post)
