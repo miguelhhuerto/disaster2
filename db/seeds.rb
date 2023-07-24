@@ -13,12 +13,27 @@
 #     user = User.create!(email: Faker::Internet.email, password: 'qwer4321', password_confirmation: "qwer4321")
 #     puts "create user id: #{user.id}, email: #{user.email}"
 # end
-
-30.times do |i|
+2.times do |i|
+    region = Address::Region.all.sample
+    province = region.provinces.sample
+    city = province.cities.sample
+    barangay = city.barangays.sample
+    user = User.all.sample
+    category_choose = Category.all.sample(rand(1..3))
     puts "start create #{i} post"
-    post = Post.create(title: Faker::Lorem.sentence, content: Faker::Lorem.paragraph, user: User.all.sample, address: Faker::Lorem.sentence, )
+    post = Post.create!(
+      title: Faker::Lorem.sentence,
+      content: Faker::Lorem.paragraph,
+      categories: category_choose,
+      user: user,
+      address: Faker::Lorem.sentence,
+      address_region_id: region.id,
+      address_province_id: province.id,
+      address_city_id: city.id,
+      address_barangay_id: barangay.id
+    )
     (1..20).to_a.sample.times do
-        Comment.create(content: Faker::Lorem.sentence, user: User.all.sample, post: post)
+        Comment.create!(content: Faker::Lorem.sentence, user: User.all.sample, post: post)
     end
     puts "finish #{i} post"
 end
