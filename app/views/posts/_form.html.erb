@@ -1,3 +1,4 @@
+
 <%= form_with model: post, data: { controller: :location } do |form| %>
   <% if post.errors.any? %>
     <ul>
@@ -8,17 +9,20 @@
   <% end %>
   <div>
     <%= form.label :title %>
-    <%= form.text_field :title %>
+    <%= form.text_field :title, class: "form-control", placeholder: "Disaster Title" %>
   </div>
+  </br>
   <div>
     <%= form.label :content %>
-    <%= form.text_field :content %>
+    <%= form.text_field :content, class: "form-control", placeholder: "Disaster Content" %>
   </div>
+  </br>
   <div>
     <%= form.label "Street Address" %>
-    <%= form.text_field :address %>
+    <%= form.text_field :address, class: "form-control", placeholder: "25 Maginhawa" %>
   </div>
-
+  </br>
+  </br>
   <div>
     <%= form.label :address_region_id %>
     <%= form.collection_select :address_region_id,
@@ -26,6 +30,7 @@
                                { prompt: 'Please Select Region' },
                                data: { location_target: 'selectedRegionId', action: 'change->location#fetchProvinces' } %>
   </div>
+  </br>
   <div>
     <%= form.label :address_province_id %>
     <%= form.collection_select :address_province_id,
@@ -33,6 +38,7 @@
                                { prompt: 'Please Select Province' },
                                data: { location_target: 'selectedProvinceId', action: 'change->location#fetchCities'} %>
   </div>
+  </br>
   <div>
     <%= form.label :address_city_id %>
     <%= form.collection_select :address_city_id,
@@ -40,6 +46,7 @@
                                { prompt: 'Please Select City' },
                                data: { location_target: 'selectedCityId', action: 'change->location#fetchBarangays'} %>
   </div>
+  </br>
   <div>
     <%= form.label :address_barangay_id %>
     <%= form.collection_select :address_barangay_id,
@@ -47,8 +54,11 @@
                                { prompt: 'Please Select Barangay' },
                                data: { location_target: 'selectBarangayId' } %>
   </div>
+  </br>
   <div>
     <%= form.collection_check_boxes :category_ids, Category.all, :id, :name %>
   </div>
-  <%= form.submit %>
+  </br>
+  <%= form.submit class:'btn btn-warning'%>
+  </br>
 <% end %>

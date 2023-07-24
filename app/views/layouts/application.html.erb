@@ -4,7 +4,7 @@
 <div class="p-3 mb-2 bg-secondary text-white">
 <head>
 
-<a class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+<a class="btn btn-outline-warning" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
  Menu
 </a>
 
@@ -15,6 +15,7 @@
   </div>
   <div class="offcanvas-body">
     <div>
+
       <%= button_to 'New Post', new_post_path, method: :get, class: 'btn btn-link' %>
     </div>
 
@@ -44,7 +45,9 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
-  <p class="notice"><%= notice %></p>
+  <%if notice%>
+    <%= render 'layouts/alert'%>
+  <%end%>
   <p class="alert"><%= alert %></p>
   <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
   <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
