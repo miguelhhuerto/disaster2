@@ -2,7 +2,7 @@ class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, except: [:index, :show]
   require 'csv'   
-
+  
   def index
     @posts = Post.includes(:categories, :user, :region, :province, :city, :barangay).all.page(params[:page]).per(5)
     respond_to do |format|
@@ -35,13 +35,16 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     @post.user = current_user
-    if Rails.env.development?
-      @post.ip_address = Net::HTTP.get(URI.parse('http://checkip.amazonaws.com/')).squish
-    else
-      @post.ip_address = request.remote_ip
-    end
     if @post.save
-
+      if Rails.env.development?
+        @post.ip_address = Net::HTTP.get(URI.parse('http://checkip.amazonaws.com/')).squish
+        @post.ip_city = request.location.city
+        @post.ip_country = request.location.country
+      else
+        @post.ip_address = request.remote_ip
+        @post.ip_city = request.location.city
+        @post.ip_country = request.location.country
+      end
       flash[:notice] = 'Post created successfully'
       redirect_to posts_path
     else
@@ -94,7 +97,10 @@ class PostsController < ApplicationController
             address_province_id: row['province'],
             address_city_id: row['city'],
             address_barangay_id: row['barangay'],
-            user: current_user
+            user: current_user,
+            ip_address: request.remote_ip,
+            ip_city: Geocoder.search(request.remote_ip).first&.city,
+            ip_country: Geocoder.search(request.remote_ip).first&.country
           )
         end 
         redirect_to posts_path, notice: "CSV file imported successfully."
