@@ -1,42 +1,44 @@
-<h1>User Posts</h1>
- <%= link_to 'Index', posts_path %>
- <%= link_to 'Export', posts_path(format: :csv, page: params[:page]) %>
-<table>
-  <thead>
-  <td>Disaster Title</td>
-  <td>Content</td>
-  <td>Type</td>
-  <td>Address</td>
-  <td>Link</td>
-  <td>User</td>
-  <td>City</td>
-  <td>Country</td>
-  <td>IP Address</td>
-  <td>Action</td>
-  </thead>
-  <% @posts.each do |post| %>
-       <tr>
-      <td><%= post.title %></td>
-      <td><%= post.content %></td>
-      <td><%= post.categories.pluck(:name).join(',') %></td>
-      <td><%= "#{post.address}, #{post.barangay&.name}, #{post.city&.name}, #{post.province&.name}, #{post.region&.name}" %></td>
-      <td><%= 'localhost:3000/' + post.shorten_url.to_s%></td>
-      <td><%= post.user&.email %></td>
-      <td><%= Geocoder.search(post.ip_address).first&.city%></td>
-      <td><%= Geocoder.search(post.ip_address).first&.country%></td>
-      <td>
-      <%if user_signed_in? && post.user == current_user%>
-        <%= post.ip_address %>
-      <%else%>
-        <%="[HIDDEN]"%>
-      <%end%>
-      </td>
-      <td>
-        <%= link_to 'Show', post_path(post) %>
-        <%= link_to 'Edit', edit_post_path(post) if policy(post).edit? %>
-      </td>
-    </tr>
-  <% end %>
-</table>
-
-<%= paginate @posts %>
+<h1 class="d-flex justify-content-center">User Posts</h1>
+ <%= link_to 'Index', posts_path, class: "btn btn-dark btn-sm text-white" %>
+ <div class="d-flex justify-content-center">
+  <table class="rounded rounded-3 overflow-hidden table table-striped table-bordered table-list", style="max-width: 80rem;">
+    <thead class="table-dark">
+    <td>Disaster Title</td>
+    <td>Content</td>
+    <td>Type</td>
+    <td>Address</td>
+    <td>Link</td>
+    <td>User</td>
+    <td>City</td>
+    <td>Country</td>
+    <td>IP Address</td>
+    <td>Action</td>
+    </thead>
+    <% @posts.each do |post| %>
+        <tr>
+        <td><%= post.title %></td>
+        <td><%= post.content %></td>
+        <td><%= post.categories.pluck(:name).join(',') %></td>
+        <td><%= "#{post.address}, #{post.barangay&.name}, #{post.city&.name}, #{post.province&.name}, #{post.region&.name}" %></td>
+        <td><%= 'localhost:3000/' + post.shorten_url.to_s%></td>
+        <td><%= post.user&.email %></td>
+        <td><%= Geocoder.search(post.ip_address).first&.city%></td>
+        <td><%= Geocoder.search(post.ip_address).first&.country%></td>
+        <td>
+        <%if user_signed_in? && post.user == current_user%>
+          <%= post.ip_address %>
+        <%else%>
+          <%="[HIDDEN]"%>
+        <%end%>
+        </td>
+        <td>
+          <%= link_to 'Show', post_path(post) %>
+          <%= link_to 'Edit', edit_post_path(post) if policy(post).edit? %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+</div>
+  <%= 'Export Data (as CSV)' %>
+  <%= button_to 'Export', posts_path(format: :csv, page: params[:page]) %>
+<div class="d-flex justify-content-center"><%= paginate @posts %></div>

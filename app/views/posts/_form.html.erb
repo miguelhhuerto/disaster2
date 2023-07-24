@@ -23,7 +23,7 @@
   </div>
   </br>
   </br>
-  <div>
+  <div class="dropdown">
     <%= form.label :address_region_id %>
     <%= form.collection_select :address_region_id,
                                Address::Region.all, :id, :name,
@@ -31,7 +31,7 @@
                                data: { location_target: 'selectedRegionId', action: 'change->location#fetchProvinces' } %>
   </div>
   </br>
-  <div>
+  <div class="dropdown"> 
     <%= form.label :address_province_id %>
     <%= form.collection_select :address_province_id,
                                [], nil, nil,
@@ -39,7 +39,7 @@
                                data: { location_target: 'selectedProvinceId', action: 'change->location#fetchCities'} %>
   </div>
   </br>
-  <div>
+  <div class="dropdown">
     <%= form.label :address_city_id %>
     <%= form.collection_select :address_city_id,
                                [], nil, nil,
@@ -47,7 +47,7 @@
                                data: { location_target: 'selectedCityId', action: 'change->location#fetchBarangays'} %>
   </div>
   </br>
-  <div>
+  <div class="dropdown">
     <%= form.label :address_barangay_id %>
     <%= form.collection_select :address_barangay_id,
                                [], nil, nil,
