@@ -34,31 +34,31 @@
         <%end%>
         </td>
         <td>
-          <%= link_to 'Show', post_path(post) %>
-          <%= link_to 'Edit', edit_post_path(post) if policy(post).edit? %>
-          <%= button_to 'Delete', post_path(post), method: :delete if policy(post).destroy? %>
-          <%= link_to 'Comments', post_comments_path(post) %>
-          <%= link_to 'New Comment', new_post_comment_path(post) %>
+          <%= link_to 'Show', post_path(post), class: "d-grid gap-2 btn btn-outline-secondary btn-sm", type: 'button'%>
+          <%= link_to 'Edit', edit_post_path(post), class: "d-grid gap-2 btn btn-outline-secondary btn-sm", type: 'button' if policy(post).edit? %>
+          <%= button_to 'Delete', post_path(post), class: "d-grid gap-2 btn btn-outline-secondary btn-sm", type: 'button', method: :delete if policy(post).destroy? %>
+          <%= link_to 'Comments', post_comments_path(post), class:"d-grid gap-2 btn btn-outline-secondary btn-sm", type: 'button' %>
+          <%= link_to 'New Comment', new_post_comment_path(post), class: "d-grid gap-2 btn btn-outline-secondary btn-sm", type: 'button' %>
         </td>
       </tr>
     <% end %>
   </table>
 </div>
-
-<div class="d-flex justify-content-center"><%= paginate @posts %></div>
-
-<div>
-<%= 'Export Data (as CSV)' %>
-<%= button_to 'Export', posts_path(format: :csv, page: params[:page]) %>
-<%= 'Import Data (CSV Format Only)' %>
-
-
-<div>
-    <%= form_tag import_posts_path, multipart: true do %>
-        <%= file_field_tag :file %>
-        <%= submit_tag "Import Data" %>
-    <% end %>
 </div>
+
+<div class="pagination pagination-lg d-flex justify-content-center"><%= paginate @posts %></div>
+
+<%= 'Export Data (as CSV)' %>
+</br>
+  <%= link_to 'Export', posts_path(format: :csv, page: params[:page]), class: 'btn btn-dark' %>
+</br>
+<%= 'Import Data (CSV Format Only)' %>
+</br>
+  <%= form_tag import_posts_path, multipart: true, class: 'btn btn-dark' do %>
+    <%= file_field_tag :file %>
+    <%= submit_tag "Import Data", class: 'btn btn-secondary' %>
+<% end %>
+
 
 
 

@@ -5,15 +5,15 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
-# categories_1 = Category.create([:name => 'COVID'])
-# categories_2 = Category.create([:name => 'Earthquake'])
-# categories_3 = Category.create([:name => 'Requirements'])
+categories_1 = Category.create([:name => 'COVID'])
+categories_2 = Category.create([:name => 'Earthquake'])
+categories_3 = Category.create([:name => 'Requirements'])
 
-# 10.times do
-#     user = User.create!(email: Faker::Internet.email, password: 'qwer4321', password_confirmation: "qwer4321")
-#     puts "create user id: #{user.id}, email: #{user.email}"
-# end
-2.times do |i|
+10.times do
+    user = User.create!(email: Faker::Internet.email, password: 'qwer4321', password_confirmation: "qwer4321")
+    puts "create user id: #{user.id}, email: #{user.email}"
+end
+20.times do |i|
     region = Address::Region.all.sample
     province = region.provinces.sample
     city = province.cities.sample
